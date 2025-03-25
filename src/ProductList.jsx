@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import addItem from './CartSlice';
+
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState({});
+
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product));
+        setAddedToCart((prevState) => ({
+           ...prevState,
+           [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+         }));
+      };
 
     const plantsArray = [
         {
@@ -231,6 +242,7 @@ function ProductList({ onHomeClick }) {
         color: 'white',
         fontSize: '30px',
         textDecoration: 'none',
+        textAlign: 'center',
     }
 
     const handleHomeClick = (e) => {
@@ -282,8 +294,8 @@ function ProductList({ onHomeClick }) {
             <div className="product-card" key={plantIndex}>
                 <div className="product-title">{plant.name}</div>
                 <img className="product-image" src={plant.image} alt={plant.name} />
-                <div className='product-cost'>{plant.cost}</div>
-                {/*Similarly like the above plant.name show other details like description and cost*/}
+                <div className='product-price'>{plant.cost}</div>
+                <div className='product-desc'><i>{plant.description}</i></div>
                 <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
             </div>
             ))}
