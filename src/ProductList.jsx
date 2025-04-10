@@ -7,15 +7,12 @@ import { addItem } from './CartSlice';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [addedToCart, setAddedToCart] = useState({});
+    const [addedToCart, setAddedToCart] = useState([]);
     const dispatch = useDispatch();
 
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
-        setAddedToCart((prevState) => ({
-           ...prevState,
-           [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
-         }));
+        setAddedToCart([...addedToCart, product.name]);
       };
 
     const plantsArray = [
@@ -298,7 +295,7 @@ function ProductList({ onHomeClick }) {
                 <img className="product-image" src={plant.image} alt={plant.name} />
                 <div className='product-price'>{plant.cost}</div>
                 <div className='product-desc'><i>{plant.description}</i></div>
-                <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                <button  className="product-button" onClick={() => handleAddToCart(plant)} disabled={addedToCart.includes(plant.name)}>{addedToCart.includes(plant.name) ? 'Added to Cart' : 'Add to Cart'}</button>
             </div>
             ))}
         </div>
