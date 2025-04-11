@@ -236,6 +236,7 @@ function ProductList({ onHomeClick }) {
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '1100px',
+        marginLeft: '400px'
     }
     const styleA = {
         color: 'white',
