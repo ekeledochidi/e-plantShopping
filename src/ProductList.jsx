@@ -4,7 +4,7 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
 
-let count = 0
+let count = 0;
 
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
